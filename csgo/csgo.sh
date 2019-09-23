@@ -181,8 +181,8 @@ function installMod() {
 # 修改权限
 function chmodSteam() {
 	cd "/home/${steamUser}"
-	mv "/root/Steam/" "/home/${steamUser}/"
-	mv "/root/.steam/" "/home/${steamUser}/"
+	mv "${Current_Dir}/Steam/" "/home/${steamUser}/"
+	mv "${Current_Dir}/.steam/" "/home/${steamUser}/"
 	chown -R steamUser *
 }
 
