@@ -1,12 +1,12 @@
 ## 一. 前期的准备 ##
-#####1.首先我们需要获取steam服务器的登录令牌。没有该令牌的服务器只能在本地网络中进行连接，在社区服务器浏览器中也不会显示。
+##### 1.首先我们需要获取steam服务器的登录令牌。没有该令牌的服务器只能在本地网络中进行连接，在社区服务器浏览器中也不会显示。
 在之前[基于Centos7.X的CS:GO私人服务器搭建](https://www.jianshu.com/p/b2cde3ba7908)中的“三.配置并运行CS:GO服务端”里面已经有关于如何获取steam服务器登录令牌的教程，这里就不多做说明了。
 
-#####2.开放云服务器的UDP 27015端口
+##### 2.开放云服务器的UDP 27015端口
 在之前的搭建教程中的“三. 配置并运行CS:GO服务端”已有相关的教程，这里也不多说了。
 
 ## 二. 获取一键安装脚本 ##
-#####1. 使用wget下载csgo.sh文件
+##### 1. 使用wget下载csgo.sh文件
 ```sh
 wget --no-check-certificate https://github.com/FisherWY/Shell/releases/download/0.2/csgo.sh
 ```
@@ -14,7 +14,7 @@ wget --no-check-certificate https://github.com/FisherWY/Shell/releases/download/
 ```sh
 sudo yum install wget
 ```
-#####2. 运行csgo.sh注意事项
+##### 2. 运行csgo.sh注意事项
 为csgo.sh添加可运行权限：
 ```sh
 chmod +x csgo.sh
