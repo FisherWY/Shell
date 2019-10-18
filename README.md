@@ -4,4 +4,5 @@
 |                        Shell仓库目录                         |
 | :----------------------------------------------------------: |
 | [CSGO一键安装脚本](https://github.com/FisherWY/Shell/blob/master/csgo/README_CSGO.md) |
+| [PathFind文件查找工具](https://github.com/FisherWY/Shell/blob/master/pathfind) |
 
