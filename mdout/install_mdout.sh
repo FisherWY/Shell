@@ -3,19 +3,19 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 #================================================#
-# 系统要求: CentOS | Red-Hat | Darwin | Ubuntu	 #
-# 描述: 一键安装 Markdown to PDF			 	 	 #
-# 作者: Fisher						 			 #
-# 联系方式: wz2483156090@gmail.com    			 #
+# 系统要求: CentOS | Red-Hat | Darwin | Ubuntu    #
+# 描述: 一键安装 Markdown to PDF (mdout by jabin)  #
+# 作者: Fisher                                    #
+# 联系方式: wz2483156090@gmail.com                #
 #================================================#
 
 clear
 echo -e "\033[34m================================================================\033[0m
 
-            欢迎使用 Markdown to PDF 一键安装脚本
+            欢迎使用 Markdown to PDF (mdout by jabin) 一键安装脚本
 
             系统要求: CentOS | Red-Hat | Darwin | Ubuntu
-            描述: 一键安装 Markdown to PDF
+            描述: 一键安装 Markdown to PDF (mdout by jabin)
             作者: Fisher
             联系方式： wz2483156090@gmail.com
 
@@ -24,8 +24,9 @@ echo
 
 # 全局变量
 # 下载地址
-DOWNLOAD_URL_LINUX="http://10.252.4.50:8080/mdout.linux.x86-64.tar.gz"
-DOWNLOAD_URL_DARWIN="http://10.252.4.50:8080/mdout.macOS.x86-64.tar.gz"
+DOWNLOAD_URL_LINUX="http://112.74.177.253:8000/f/edcb3b9e460d4d18ab3f/?dl=1"
+DOWNLOAD_URL_DARWIN="http://112.74.177.253:8000/f/100873c74622474da4d9/?dl=1"
+DOWNLOAD_URL_WIN="http://112.74.177.253:8000/f/574b3d14ffe04bb1880b/?dl=1"
 # 检查用户是否安装wget或curl: 0->安装了wget | 1->安装了curl | 2->2个都没有装
 TOOL_TYPE=
 # 系统信息: 0->Linux | 1->Darwin | 2->Ubuntu
@@ -74,19 +75,19 @@ function checkOS() {
 
 # 下载Markdown to PDF程序包
 function downloadProgram() {
-	echo -e "\033[33m 开始下载 Markdown to PDF 程序包...... \033[0m"
+	echo -e "\033[33m 开始下载 Markdown to PDF (mdout by jabin) 程序包...... \033[0m"
 	# 系统为Darwin
 	if [[ $OS_TYPE -eq 1 ]]; then
 		# 工具为wget
 		if [[ $TOOL_TYPE -eq 0 ]]; then
 			if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_URL_DARWIN; then
-				echo -e "\033[31m 下载 Markdown to PDF 文件失败,请检查网络状态. \033[0m"
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败,请检查网络状态. \033[0m"
 				exit 1
 			fi
 		# 工具为curl
 		else
 			if ! curl -o mdout.tar.gz $DOWNLOAD_URL_DARWIN; then
-				echo -e "\033[31m 下载 Markdown to PDF 文件失败,请检查网络状态. \033[0m"
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败,请检查网络状态. \033[0m"
 				exit 1
 			fi
 		fi
@@ -95,36 +96,36 @@ function downloadProgram() {
 		# 工具为wget
 		if [[ $TOOL_TYPE -eq 0 ]]; then
 			if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_URL_LINUX; then
-				echo -e "\033[31m 下载 Markdown to PDF 文件失败,请检查网络状态. \033[0m"
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败,请检查网络状态. \033[0m"
 				exit 1
 			fi
 		# 工具为curl
 		else
 			if ! curl -o mdout.tar.gz $DOWNLOAD_URL_LINUX; then
-				echo -e "\033[31m 下载 Markdown to PDF 文件失败,请检查网络状态. \033[0m"
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败,请检查网络状态. \033[0m"
 				exit 1
 			fi
 		fi
 	fi
-	echo -e "\033[32m 下载 Markdown to PDF 完成 \033[0m"
+	echo -e "\033[32m 下载 Markdown to PDF (mdout by jabin) 完成 \033[0m"
 }
 
 # 解压安装mdout.tar.gz
 function installProgram() {
-	echo -e "\033[33m 开始安装 Markdown to PDF...... \033[0m"
-	tar xvf mdout.tar.gz && rm mdout.tar.gz
+	echo -e "\033[33m 开始安装 Markdown to PDF (mdout by jabin) ...... \033[0m"
+	tar zxvf mdout.tar.gz && rm mdout.tar.gz
 	# 在Linux系统下添加到环境变量需要root权限
 	if [[ $OS_TYPE -eq 1 ]]; then
 		mv ./mdout /usr/local/bin
 	else
-		echo -e "\033[33m 在Linux下将 Markdown to PDF 添加到环境变量需要root用户密码, 请在下方输入 \033[0m"
+		echo -e "\033[33m 在Linux下将 Markdown to PDF (mdout by jabin) 添加到环境变量需要root用户密码, 请在下方输入 \033[0m"
 		sudo mv ./mdout /usr/local/bin
 	fi
 	# mdout初始化
 	if ! mdout install; then
 		echo -e "\033[31m 执行mdout初始化失败, 请在后续自行初始化 \033[0m"
 	fi
-	echo -e "\033[32m 安装 Markdown to PDF 完成 \033[0m"
+	echo -e "\033[32m 安装 Markdown to PDF (mdout by jabin) 完成 \033[0m"
 }
 
 # 输出安装信息
