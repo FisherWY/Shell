@@ -4,6 +4,6 @@
 |                        Shell仓库目录                         |
 | :----------------------------------------------------------: |
 | [CSGO一键安装脚本](https://github.com/FisherWY/Shell/blob/master/csgo/README_CSGO.md) |
-| [PathFind文件查找工具](https://github.com/FisherWY/Shell/blob/master/pathfind) |
+| [PathFind文件查找工具](https://github.com/FisherWY/Shell/blob/master/README_pathfind.md) |
 | [Markdown to PDF (mdout by jabin) Markdown转PDF工具一键安装脚本](https://github.com/FisherWY/Shell/blob/master/mdout/README_mdout_by_jabin.md) |
 

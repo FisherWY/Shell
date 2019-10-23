@@ -6,13 +6,13 @@
 # 标准输出所产生的结果, 通常是查找路径下找到的每个文件的第一个实体的完整路径
 # 或是"filename: not found"的标准错误输出
 #
-# 如果所有问价都找到, 则退出码为0,
+# 如果所有文件都找到, 则退出码为0,
 # 否则, 即为找不到的文件个数(非0)
 # Shell的退出码限制为125
 #
-# 语法: pathfind [-all] [--?] [--help] [--version] envvar pattern(s)
+# 语法: pathfind [--all] [--?] [--help] [--version] envvar pattern(s)
 #
-# 使用--all选项时, 在路径下的每个目录都会被查找
+# 使用--all选项时, 在路径下的每个匹配结果都会输出
 #
 
 # 避免利用输入分割符的攻击
@@ -115,7 +115,6 @@ do
 	do
 		for file in $dir/$pattern
 		do
-			echo "$dir/$pattern"
 			if test -f "$file"
 			then
 				result="$file"
