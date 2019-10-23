@@ -15,13 +15,13 @@ linux && macOS推荐使用脚本安装
 - curl方式
 
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/FisherWY/Shell/master/mdout/install_mdout.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/FisherWY/Shell/master/mdout/install_mdout.sh)"
 ```
 
 - wget方式
 
 ```shell
-sh -c "$(wget https://raw.githubusercontent.com/FisherWY/Shell/master/mdout/install_mdout.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/FisherWY/Shell/master/mdout/install_mdout.sh -O -)"
 ```
 
 ### 手动安装
