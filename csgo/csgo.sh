@@ -123,36 +123,26 @@ function updateCSGO() {
 function setupCSGO() {
 	echo -e "正在下载并配置server.cfg文件......"
 	cd "../${csgoFolder}/csgo/cfg"
-	wget --no-check-certificate http://www.csgodev.com/downloads/server.cfg
+	touch server.cfg
 
 	# 修改游戏hostname、rcon_paswword和sv_password
 	read -p "请输入CSGO服务器名称(默认为Counter-Strike:Global Offensive): " hostname
 	[ -z "${hostname}" ] && hostname='Counter-Strike:Global Offensive'
-	sed -i "s#CSGODev.com CSGO Server#${hostname}#g" server.cfg
+	echo "hostname \"${hostname}\"" >> server.cfg
 	
 	read -p "请输入RCON密码(用于服务器远程管理登录,默认为空): " rconPassword
 	[ -z "${rconPassword}" ] && rconPassword=''
-	sed -i 's/rcon_password ""/rcon_password "'${rconPassword}'"/g' server.cfg
+	echo "rcon_password \"${rconPassword}\"" >> server.cfg
 
 	read -p "请输入服务器密码(用于社区服务器浏览器连接进入房间,默认为空): " svPassword
 	[ -z "${svPassword}" ] && svPassword=''
-	sed -i 's/sv_password ""/sv_password "'${svPassword}'"/g' server.cfg
-
-	# 修改游戏sv_maxrate、sv_minrate、sv_accelerate和sv_tags
-	sed -i 's/sv_maxrate "200"/sv_maxrate "128000"/g' server.cfg
-	sed -i 's/sv_minrate "5000"/sv_minrate "80000"/g' server.cfg
-	sed -i 's/sv_accelerate "10"/sv_accelerate "5.5"/g' server.cfg
-	sed -i 's/sv_tags "CSGODEV"/sv_tags "CSGO by Fisher"/g' server.cfg
+	echo "sv_password \"${svPassword}\"" >> server.cfg
 
 	read -p "请输入从steam官方申请的登录令牌(留空则需要自己配置): " steamAccount
 	if [[ -n "${steamAccount}" ]]; then
 		# 添加steam account信息
-		sed -i '6i\// steam account，修改为自己刚刚申请的登陆令牌' server.cfg
-		sed -i '7i\sv_setsteamaccount "'${steamAccount}'"' server.cfg
+		echo "sv_setsteamaccount \"${steamAccount}\"" >> server.cfg
 	fi
-
-	# 将sed插入语句时文件的dos编码转为unix编码
-	sed -i 's/\r//' server.cfg
 
 	cd "../../"
 	echo -e "server.cfg文件配置完成"
@@ -164,9 +154,9 @@ function installMod() {
 	case "${needmod}" in
 	'y' | 'Y' )
 		cd "csgo/"
-		wget --no-check-certificate -O sourcemod.tar.gz https://sm.alliedmods.net/smdrop/1.9/sourcemod-1.9.0-git6282-linux.tar.gz
+		wget --no-check-certificate -O sourcemod.tar.gz https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6502-linux.tar.gz
 		tar zxvf sourcemod.tar.gz
-		wget --no-check-certificate -O mmsource.tar.gz https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz
+		wget --no-check-certificate -O mmsource.tar.gz https://mms.alliedmods.net/mmsdrop/1.11/mmsource-1.11.0-git1144-linux.tar.gz
 		tar zxvf mmsource.tar.gz
 		rm -f sourcemod.tar.gz
 		rm -f mmsource.tar.gz
