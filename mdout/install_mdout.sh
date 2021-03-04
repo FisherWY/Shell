@@ -24,9 +24,10 @@ echo
 
 # 全局变量
 # 下载地址
-DOWNLOAD_URL_LINUX="http://112.74.177.253:8000/f/edcb3b9e460d4d18ab3f/?dl=1"
-DOWNLOAD_URL_DARWIN="http://112.74.177.253:8000/f/100873c74622474da4d9/?dl=1"
-DOWNLOAD_URL_WIN="http://112.74.177.253:8000/f/574b3d14ffe04bb1880b/?dl=1"
+DOWNLOAD_URL_LINUX="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout.linux.x86-64.tar.gz"
+DOWNLOAD_URL_DARWIN="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout.macOS.x86-64.tar.gz"
+DOWNLOAD_URL_WIN="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout_windows_x86-64.tar.gz"
+DOWNLOAD_URL_THEME="https://github.com/JabinGP/mdout-theme-github/archive/0.1.0.zip"
 # 检查用户是否安装wget或curl: 0->安装了wget | 1->安装了curl | 2->2个都没有装
 TOOL_TYPE=
 # 系统信息: 0->Linux | 1->Darwin | 2->Ubuntu
@@ -62,10 +63,10 @@ function checkOS() {
 	OS_VERSION=`uname`
 	if [[ $OS_VERSION == "Linux" ]]; then
 		OS_TYPE=0
-		THEME_HOME="/home/$USER_NAME/binmdout"
+		THEME_HOME="/home/$USER_NAME/mdout"
 	elif [[ $OS_VERSION == "Darwin" ]]; then
 		OS_TYPE=1
-		THEME_HOME="/Users/$USER_NAME/binmdout"
+		THEME_HOME="/Users/$USER_NAME/mdout"
 	else
 		echo -e "\033[31m 错误: 本脚本不支持此系统 \033[0m"
 		exit 1
@@ -118,11 +119,11 @@ function installProgram() {
 	if [[ $OS_TYPE -eq 1 ]]; then
 		mv ./mdout /usr/local/bin
 	else
-		echo -e "\033[33m 在Linux下将 Markdown to PDF (mdout by jabin) 添加到环境变量需要root用户密码, 请在下方输入 \033[0m"
+		echo -e "\033[33m 在Linux下将 Markdown to PDF (mdout by jabin) 添加到环境变量需要root用户密码, 请在下方输入密码 \033[0m"
 		sudo mv ./mdout /usr/local/bin
 	fi
 	# mdout初始化
-	if ! mdout install; then
+	if ! mdout install theme -u $DOWNLOAD_URL_THEME -n github; then
 		echo -e "\033[31m 执行mdout初始化失败, 请在后续自行初始化 \033[0m"
 	fi
 	echo -e "\033[32m 安装 Markdown to PDF (mdout by jabin) 完成 \033[0m"
@@ -135,7 +136,7 @@ function showInfo() {
 	echo
 	echo -e "\033[32m 安装完成, 可直接通过mdout运行, 安装信息如下 \033[0m"
 	echo -e "\033[32m mdout主程序安装在以下目录: /usr/local/bin \033[0m"
-	echo -e "\033[32m mdout主题包安装在以下目录: $THEME_HOME \033[0m"
+	echo -e "\033[32m mdout相关配置文件在以下目录: $THEME_HOME \033[0m"
 	echo
 	echo -e "\033[34m================================================================\033[0m"
 }
