@@ -23,11 +23,14 @@ echo -e "\033[34m===============================================================
 echo
 
 # 全局变量
+# mdout 程序及主题版本
+MDOUT_VERSION="0.7.0"
+MDOUT_THEME_GITHUB_VERSION="0.1.1"
 # 下载地址
-DOWNLOAD_URL_LINUX="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout.linux.x86-64.tar.gz"
-DOWNLOAD_URL_DARWIN="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout.macOS.x86-64.tar.gz"
-DOWNLOAD_URL_WIN="https://github.com/JabinGP/mdout/releases/download/0.7.0/mdout_windows_x86-64.tar.gz"
-DOWNLOAD_URL_THEME="https://github.com/JabinGP/mdout-theme-github/archive/0.1.1.zip"
+DOWNLOAD_URL_LINUX="https://github.com/JabinGP/mdout/releases/download/${MDOUT_VERSION}/mdout.linux.x86-64.tar.gz"
+DOWNLOAD_URL_DARWIN="https://github.com/JabinGP/mdout/releases/download/${MDOUT_VERSION}/mdout.macOS.x86-64.tar.gz"
+DOWNLOAD_URL_WIN="https://github.com/JabinGP/mdout/releases/download/${MDOUT_VERSION}/mdout_windows_x86-64.tar.gz"
+DOWNLOAD_URL_THEME="https://github.com/JabinGP/mdout-theme-github/archive/${MDOUT_THEME_GITHUB_VERSION}.zip"
 DOWNLOAD_PROXY="https://ghproxy.cfjabin.workers.dev/"
 # 检查用户是否安装wget或curl: 0->安装了wget | 1->安装了curl | 2->2个都没有装
 TOOL_TYPE=
@@ -35,7 +38,6 @@ TOOL_TYPE=
 OS_TYPE=
 # 用户名称
 USER_NAME=
-
 function checkTool() {
 	echo -e "\033[33m 检查依赖工具包...... \033[0m"
 	if [ -x "$(command -v wget)" ]; then
@@ -75,6 +77,20 @@ function checkOS() {
 	echo -e "\033[32m 检查完成, 你的系统为: $OS_VERSION -> OS_TYPE: $OS_TYPE \033[0m"
 }
 
+# 检查是否需要通过代理获取网络资源
+function checkProxy() {
+	echo -e "\033[33m 检查是否启用代理...... \033[0m"
+	for i in "$*"; do
+		if [[ $i == "--enable-proxy" ]]; then
+			echo -e "\033[32m 将通过代理地址 ${DOWNLOAD_PROXY} 下载程序包和主题包... \033[0m"
+			DOWNLOAD_URL_LINUX=$DOWNLOAD_PROXY$DOWNLOAD_URL_LINUX
+			DOWNLOAD_URL_DARWIN=$DOWNLOAD_PROXY$DOWNLOAD_URL_DARWIN
+			DOWNLOAD_URL_WIN=$DOWNLOAD_PROXY$DOWNLOAD_URL_WIN
+			DOWNLOAD_URL_THEME=$DOWNLOAD_PROXY$DOWNLOAD_URL_THEME
+		fi
+	done
+}
+
 # 下载Markdown to PDF程序包
 function downloadProgram() {
 	echo -e "\033[33m 开始下载 Markdown to PDF (mdout by jabin) 程序包...... \033[0m"
@@ -83,41 +99,29 @@ function downloadProgram() {
 		# 工具为wget
 		if [[ $TOOL_TYPE -eq 0 ]]; then
 			if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_URL_DARWIN; then
-				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 尝试使用代理加速下载. \033[0m"
-				if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_PROXY$DOWNLOAD_URL_DARWIN; then
-					echo -e "\033[31m 代理下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
-					exit 1
-				fi
-			fi
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
+			    exit 1
+            fi
 		# 工具为curl
 		else
 			if ! curl -o mdout.tar.gz $DOWNLOAD_URL_DARWIN; then
-				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 尝试使用代理加速下载. \033[0m"
-				if ! curl -o mdout.tar.gz $DOWNLOAD_PROXY$DOWNLOAD_URL_DARWIN; then
-					echo -e "\033[31m 代理下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
-					exit 1
-				fi
-			fi
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
+                exit 1
+            fi
 		fi
 	# 系统为Linux
 	else
 		# 工具为wget
 		if [[ $TOOL_TYPE -eq 0 ]]; then
 			if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_URL_LINUX; then
-				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 尝试使用代理加速下载. \033[0m"
-				if ! wget --no-check-certificate -O mdout.tar.gz -c $DOWNLOAD_PROXY$DOWNLOAD_URL_LINUX; then
-					echo -e "\033[31m 代理下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
-					exit 1
-				fi
-			fi
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
+				exit 1
+            fi
 		# 工具为curl
 		else
 			if ! curl -o mdout.tar.gz $DOWNLOAD_URL_LINUX; then
-				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 尝试使用代理加速下载. \033[0m"
-				if ! curl -o mdout.tar.gz $DOWNLOAD_PROXY$DOWNLOAD_URL_LINUX; then
-					echo -e "\033[31m 代理下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
-					exit 1
-				fi
+				echo -e "\033[31m 下载 Markdown to PDF (mdout by jabin) 文件失败, 请检查网络状态. \033[0m"
+				exit 1
 			fi
 		fi
 	fi
@@ -141,11 +145,8 @@ function installProgram() {
 		mv $THEME_HOME $THEME_HOME.bak
 	fi
 	if ! mdout install theme -u $DOWNLOAD_URL_THEME -n github; then
-		echo -e "\033[31m 执行mdout初始化失败, 尝试使用代理初始化 \033[0m"
-		if ! mdout install theme -u $DOWNLOAD_PROXY$DOWNLOAD_URL_THEME -n github; then
-			echo -e "\033[31m 执行mdout初始化失败, 请稍后尝试或检查网络状态 \033[0m"
-			exit 1
-		fi
+		echo -e "\033[31m 执行mdout初始化失败, 请检查网络状态 \033[0m"
+		exit 1
 	fi
 	echo -e "\033[32m 安装 Markdown to PDF (mdout by jabin) 完成 \033[0m"
 }
@@ -167,6 +168,7 @@ function showInfo() {
 checkTool
 checkUser
 checkOS
+checkProxy "$*"
 downloadProgram
 installProgram
 showInfo
