@@ -11,6 +11,12 @@
 执行以下脚本一键更新即可：
 
 ```sh
-wget https://github.com/FisherWY/Shell/blob/master/murmur/update_murmur.sh -O - | bash /dev/stdin
+wget https://raw.githubusercontent.com/FisherWY/Shell/master/murmur/update_murmur.sh -O - | bash /dev/stdin
+```
+
+如果下载脚本时出现网络问题，可尝试以下命令，使用代理加速下载：
+
+```sh
+wget https://ghproxy.cfjabin.workers.dev/https://raw.githubusercontent.com/FisherWY/Shell/master/murmur/update_murmur.sh -O - | bash /dev/stdin
 ```
 
